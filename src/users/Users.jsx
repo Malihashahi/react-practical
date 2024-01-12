@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import style from '../style.module.css'
 import swal from 'sweetalert';
+//import { useEffect } from 'react/cjs/react.production.min';
+import  {useEffect} from 'react';
+import { cleanup } from '@testing-library/react';
+import axios from 'axios';
 
 const Users = ()=>{
     const navigate = useNavigate();
+    const [user, setUsers]= useState([]);
+    useEffect(()=>{
+   axios.get('https://jsonplaceholder.typicode.com/users').then(res=>{
+    setUsers(res.data);
+   }).catch(err=>{
+    console.log(err);
+   })
+     
+    },[]);
     const handleDelete = (itemId)=>{
         swal({
             title: "حذف رکورد !",
@@ -40,37 +53,42 @@ const Users = ()=>{
                     </Link>
                 </div>
             </div>
-            <table className="ta.ble bg-light shadow">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>نام</th>
-                        <th>نام کاربری</th>
-                        <th>ایمیل</th>
-                        <th>عملیات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>maliha</td>
-                        <td>shahi</td>
-                        <td>malihashahi@gmail.com</td>
-                        <td>       
+            {Users.length ?(
+     <table className="ta.ble bg-light shadow">
+     <thead>
+         <tr>
+             <th>#</th>
+             <th>نام</th>
+             <th>نام کاربری</th>
+             <th>ایمیل</th>
+             <th>عملیات</th>
+         </tr>
+     </thead>
+     <tbody>
+   {Users.map(u=>(      <tr>
+             <td>{u.id}</td>
+             <td>{u.name}</td>
+             <td>{u.username}</td>
+             <td>{u.email}</td>
+             <td>       
 
-                                <i className="fas fa-edit text-warning mx-2 pointer"
-                                onClick={()=>navigate("/user/add/2" ,{state:{ x:"react",y:"angular"}})
-                            }
-                                ></i>
-                              
-                            <i className="fas fa-trash text-danger mx-2 pointer"
-                            onClick={()=>handleDelete(1)}
-                            
-                            ></i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                     <i className="fas fa-edit text-warning mx-2 pointer"
+                     onClick={()=>navigate("/user/add/2" ,{state:{ x:"react",y:"angular"}})
+                 }
+                     ></i>
+                   
+                 <i className="fas fa-trash text-danger mx-2 pointer"
+                 onClick={()=>handleDelete(1)}
+                 
+                 ></i>
+             </td>
+         </tr>))}
+     </tbody>
+ </table>
+            ):(
+                <h4 className="text-center text-info">لطفا صبر کنید</h4>
+            )}
+            
         </div>
     )
 
