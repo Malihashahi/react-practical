@@ -9,8 +9,28 @@ import axios from 'axios';
 
 const Users = ()=>{
     const navigate = useNavigate();
-    const [user, setUsers]= useState([]);
+    const [users, setUsers]= useState([]);
     useEffect(()=>{
+    console.log(1);
+    setTimeout(()=>{
+        console.log(2);
+    },1000)
+    console.log(3);
+    let promise= new Promise (( resolve, reject)=>{
+        console.log(1);
+        setTimeout(()=>{
+            console.log(2);
+            resolve(true)
+        },1000)
+
+     }).then(res=>{
+        console.log(3);
+     }).catch(err=>{
+        console.log(err)
+     })
+
+
+
    axios.get('https://jsonplaceholder.typicode.com/users').then(res=>{
     setUsers(res.data);
    }).catch(err=>{
@@ -53,10 +73,10 @@ const Users = ()=>{
                     </Link>
                 </div>
             </div>
-            {Users.length ?(
+            {users.length ?(
      <table className="ta.ble bg-light shadow">
      <thead>
-         <tr>
+         <tr >
              <th>#</th>
              <th>نام</th>
              <th>نام کاربری</th>
@@ -65,7 +85,9 @@ const Users = ()=>{
          </tr>
      </thead>
      <tbody>
-   {Users.map(u=>(      <tr>
+   {users.map(u=>(      
+   <tr key={u.id} >
+   
              <td>{u.id}</td>
              <td>{u.name}</td>
              <td>{u.username}</td>
