@@ -8,6 +8,7 @@ import Todos from './todos/Todos';
 import AddUser from './users/AddUser';
 import EditDesc from './users/EditDesc';
 import Users from './users/Users';
+import WithAlert2 from './HOC/withAlert2';
 
 const Content = ()=>{
 
@@ -19,6 +20,7 @@ const Content = ()=>{
         setShowMenu(!showMenu)
         console.log(showMenu);
     }
+    const renderUser=((Confirm,Alert )=> <Users Confirm={Confirm} Alert={Alert}/>)
 
     return (
         <div className={style.content_section} onClick={()=>{setShowMenu(false)}}>
@@ -27,7 +29,11 @@ const Content = ()=>{
             ></i>
                 <Routes>
                     {/* <Route path="/" element={<Navigate replace to="/gallery"/>} /> */}
-                    <Route path="/user" element={<Users/>} />
+                    <Route path="/user" element={
+                       <WithAlert2>
+                       {renderUser}
+                   </WithAlert2>
+                    } />
                     <Route path="/user/add" element={<AddUser/>}>
                         <Route path=":userId"/>
                         {/* <Route path=":userId" element={<EditDesc/>} /> */}
@@ -35,7 +41,11 @@ const Content = ()=>{
                     <Route path="/post" element={<Posts/>} />
                     <Route path="/gallery" element={<Gallery/>} />
                     <Route path="/todo" element={<Todos/>} />
-                    <Route path="*" element={<Users/>} />
+                    <Route path="*" element={ 
+                          <WithAlert2>
+                          {renderUser}
+                      </WithAlert2>
+                    } />
                 </Routes>
             
         </div>
