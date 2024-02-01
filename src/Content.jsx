@@ -1,5 +1,6 @@
-import React, { useContext, useState } from 'react';
-import { Route , Routes , Navigate} from 'react-router-dom';
+import React, { useContext} from 'react';
+import { Route , Routes} from 'react-router-dom';
+
 import { MainContext } from './contexts/MainContext';
 import Gallery from './gallery/Gallery';
 import Posts from './posts/Posts';
@@ -14,7 +15,7 @@ import AddPost from './posts/AddPost';
 const Content = ()=>{
 
     const {showMenu,setShowMenu} = useContext(MainContext)
-    const [isUser , setIsUser] = useState(false);
+
 
     const handleShowMenu = (event)=>{
         event.stopPropagation()
