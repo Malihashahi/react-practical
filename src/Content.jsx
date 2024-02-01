@@ -9,6 +9,7 @@ import AddUser from './users/AddUser';
 import EditDesc from './users/EditDesc';
 import Users from './users/Users';
 import WithAlert2 from './HOC/withAlert2';
+import AddPost from './posts/AddPost';
 
 const Content = ()=>{
 
@@ -37,6 +38,9 @@ const Content = ()=>{
                     <Route path="/user/add" element={<AddUser/>}>
                         <Route path=":userId"/>
                         {/* <Route path=":userId" element={<EditDesc/>} /> */}
+                    </Route>
+                    <Route path="/post/add" element={<AddPost/>}>
+                        <Route path=":postId"/>
                     </Route>
                     <Route path="/post" element={<Posts/>} />
                     <Route path="/gallery" element={<Gallery/>} />
