@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getPostsService } from '../services/PostSErvice';
 import style from '../style.module.css'
 // import Counter from './Counter';
-
+import useTitle from '../hooks/useTitle';
 const Posts = ()=>{
 
     const [posts , setPosts] = useState([]);
@@ -43,6 +43,7 @@ const Posts = ()=>{
         console.log("evry change uId");
         handleSearch()
     } , [uId])
+useTitle("پست ها")
 
     return (
         <div className={`${style.item_content} mt-5 p-4 container-fluid`}>
